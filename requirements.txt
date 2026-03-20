@@ -1,0 +1,24 @@
+# Core
+torch>=2.1.0
+numpy
+
+# Tokenizer
+tokenizers>=0.15.0
+sentencepiece
+
+# Data
+datasets>=2.16.0
+tree-sitter>=0.21.0
+tree-sitter-languages>=1.10.0
+
+# Training
+wandb
+pyyaml
+tqdm
+
+# Serving
+fastapi
+uvicorn
+
+# LoRA fine-tuning (Phase 2)
+# peft>=0.7.0
