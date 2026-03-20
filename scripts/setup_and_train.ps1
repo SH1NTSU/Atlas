@@ -65,8 +65,8 @@ python -c "import torch; print('CUDA available:', torch.cuda.is_available()); pr
 
 # Should print:
 #   CUDA available: True
-#   GPU: NVIDIA GeForce RTX 3060 Ti
-#   VRAM: 8.0 GB
+#   GPU: NVIDIA GeForce RTX 3060
+#   VRAM: 12.0 GB
 
 # ────────────────────────────────────────────────────────────
 # STEP 6: Run tests to verify everything works
@@ -109,9 +109,9 @@ python -c "import sys; sys.path.insert(0, 'src'); from data.preprocessing import
 #   - Disable sleep: Settings -> System -> Power -> Screen and sleep -> Never
 #   - Close other GPU-heavy apps (games, browsers with hardware acceleration)
 
-python scripts/train.py --phase pretrain --precision fp16
+python scripts/train.py --phase pretrain --precision fp16 --seq-length 2048
 
-# Training will take ~3-5 days.
+# Training will take ~4-6 days (larger model than before).
 # Checkpoints save every 5000 steps automatically.
 # You can safely close the window — just resume later (see below).
 

@@ -21,12 +21,12 @@ import torch.nn.functional as F
 @dataclass
 class AtlasConfig:
     vocab_size: int = 32000
-    hidden_size: int = 768
-    intermediate_size: int = 2048
-    num_hidden_layers: int = 14
-    num_attention_heads: int = 12
+    hidden_size: int = 1024
+    intermediate_size: int = 2816
+    num_hidden_layers: int = 20
+    num_attention_heads: int = 16
     num_key_value_heads: int = 4
-    max_position_embeddings: int = 2048
+    max_position_embeddings: int = 4096
     rope_theta: float = 10000.0
     rms_norm_eps: float = 1e-5
     tie_word_embeddings: bool = True
@@ -173,12 +173,13 @@ class Atlas(nn.Module):
     """
     Atlas: Llama-style causal language model.
 
-    ~150M parameters with:
-    - 14 transformer layers
-    - 768 hidden dim, 12 Q heads, 4 KV heads (GQA)
-    - SwiGLU FFN with 2048 intermediate dim
+    ~260M parameters with:
+    - 20 transformer layers
+    - 1024 hidden dim, 16 Q heads, 4 KV heads (GQA)
+    - SwiGLU FFN with 2816 intermediate dim
     - RoPE positional encoding
     - RMSNorm
+    - Optimized for RTX 3060 12GB VRAM
     """
 
     def __init__(self, config: AtlasConfig):

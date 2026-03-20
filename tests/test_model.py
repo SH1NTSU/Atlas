@@ -66,24 +66,24 @@ def full_model(config):
 class TestModelConstruction:
     def test_default_config(self, config):
         assert config.vocab_size == 32000
-        assert config.hidden_size == 768
-        assert config.num_hidden_layers == 14
-        assert config.num_attention_heads == 12
+        assert config.hidden_size == 1024
+        assert config.num_hidden_layers == 20
+        assert config.num_attention_heads == 16
         assert config.num_key_value_heads == 4
 
     def test_head_dim(self, config):
-        assert config.head_dim == 768 // 12  # 64
+        assert config.head_dim == 1024 // 16  # 64
 
     def test_kv_groups(self, config):
-        assert config.num_kv_groups == 12 // 4  # 3
+        assert config.num_kv_groups == 16 // 4  # 4
 
     def test_model_creates(self, model):
         assert model is not None
 
     def test_full_model_param_count(self, full_model):
-        """Verify ~150M parameters."""
+        """Verify ~260M parameters."""
         count = full_model.count_parameters()
-        assert 100_000_000 < count < 250_000_000, f"Expected ~150M params, got {count / 1e6:.1f}M"
+        assert 200_000_000 < count < 350_000_000, f"Expected ~260M params, got {count / 1e6:.1f}M"
 
     def test_small_model_param_count(self, model, small_config):
         count = model.count_parameters()
@@ -367,8 +367,8 @@ class TestGeneration:
 # ─── Memory Budget ──────────────────────────────────────────
 
 class TestMemoryBudget:
-    def test_full_model_fits_8gb(self, config):
-        """Verify model + training state fits in 8GB VRAM."""
+    def test_full_model_fits_12gb(self, config):
+        """Verify model + training state fits in 12GB VRAM."""
         model = Atlas(config)
         param_count = model.count_parameters()
 
@@ -379,15 +379,15 @@ class TestMemoryBudget:
         total_bytes = params_bytes + grads_bytes + optimizer_bytes
 
         total_mb = total_bytes / (1024 ** 2)
-        # Leave room for activations — total model state should be < 5GB
-        # (activations + framework overhead needs remaining 3GB)
-        assert total_mb < 5000, f"Model state {total_mb:.0f}MB exceeds 5GB budget"
+        # Leave room for activations — total model state should be < 8GB
+        # (activations + framework overhead needs remaining 4GB)
+        assert total_mb < 8000, f"Model state {total_mb:.0f}MB exceeds 8GB budget"
 
     def test_param_count_in_range(self, config):
         model = Atlas(config)
         count = model.count_parameters()
-        # Should be between 100M and 250M
-        assert 100_000_000 <= count <= 250_000_000
+        # Should be between 200M and 350M
+        assert 200_000_000 <= count <= 350_000_000
 
 
 # ─── Determinism ─────────────────────────────────────────────

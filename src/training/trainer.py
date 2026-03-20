@@ -45,7 +45,7 @@ class TrainingArgs:
     max_steps: int = 100000
     warmup_steps: int = 1000
     lr_scheduler: str = "cosine"
-    seq_length: int = 1024
+    seq_length: int = 2048
 
     # Precision
     precision: str = "fp16"  # "fp16", "bf16", or "fp32"

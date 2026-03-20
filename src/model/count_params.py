@@ -58,5 +58,5 @@ if __name__ == "__main__":
     print(f"  Total:         {vram['total_est_mb']:>8.1f} MB")
     print()
 
-    fits_8gb = vram['total_est_mb'] < 7500  # Leave some headroom
-    print(f"Fits in 8GB VRAM: {'YES' if fits_8gb else 'NO — reduce model size'}")
+    fits_12gb = vram['total_est_mb'] < 11500  # Leave some headroom
+    print(f"Fits in 12GB VRAM: {'YES' if fits_12gb else 'NO — reduce model size'}")

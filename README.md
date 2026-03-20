@@ -8,12 +8,12 @@ A ~150M parameter transformer model trained from scratch for:
 
 ## Architecture
 - Llama-style transformer (RoPE, RMSNorm, SwiGLU, GQA)
-- ~150M parameters
-- 2048 token context window
+- ~260M parameters (20 layers, 1024 hidden, 16 heads)
+- 4096 max context window (2048 training, extendable)
 - Custom BPE tokenizer optimized for target languages
 
 ## Hardware Target
-- RTX 3060 Ti 8GB VRAM
+- RTX 3060 12GB VRAM
 - Training in fp16 mixed precision
 
 ## Project Structure
