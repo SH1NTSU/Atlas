@@ -209,7 +209,7 @@ def main():
     parser.add_argument("--device", default="auto", help="Device: auto, cuda, cpu")
     parser.add_argument("--mode", choices=["cli", "server"], default="cli")
     parser.add_argument("--host", default="0.0.0.0")
-    parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--port", type=int, default=3001)
     args = parser.parse_args()
 
     engine = AtlasInference(args.checkpoint, args.tokenizer, args.device)

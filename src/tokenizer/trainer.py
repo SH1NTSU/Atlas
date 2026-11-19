@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from tokenizers import Tokenizer, models, normalizers, pre_tokenizers, trainers, decoders, processors
+from tokenizers import Tokenizer, Regex, models, normalizers, pre_tokenizers, trainers, decoders, processors
 
 
 # Special tokens
@@ -40,7 +40,7 @@ def create_tokenizer(vocab_size: int = 32000) -> tuple[Tokenizer, trainers.BpeTr
     # This is critical for code — we want meaningful token boundaries
     tokenizer.pre_tokenizer = pre_tokenizers.Sequence([
         pre_tokenizers.Split(
-            pattern=pre_tokenizers.Regex(
+            pattern=Regex(
                 r"""'(?i:[sdmt]|ll|ve|re)|[^\r\n\p{L}\p{N}]?+\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]++[\r\n]*|\s*[\r\n]|\s+(?!\S)|\s+"""
             ),
             behavior="isolated",
